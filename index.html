@@ -16,6 +16,36 @@
     
     .font-jua { font-family: 'Jua', sans-serif !important; }
     .font-digital { font-family: 'Digital-7 Mono', monospace; }
+    .prototype-footer {
+        font-family: Arial, sans-serif;
+        width: calc(100% - 32px);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        overflow-wrap: anywhere;
+        font-size: 12px;
+        line-height: normal;
+        color: #75658f;
+    }
+
+    .prototype-footer .version {
+        font-weight: bold;
+        color: #75658f;
+    }
+
+    .prototype-footer .divider {
+        color: #9ca3af;
+    }
+
+    @media (max-width: 768px) {
+        .prototype-footer {
+            font-size: 11px;
+            line-height: 1.5;
+        }
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-amber-300 via-orange-300 to-red-300 min-h-[100dvh] font-sans">
@@ -135,7 +165,7 @@
           setProblemCount(nextCount);
           
           setTimeout(() => {
-            if (nextCount > 0 && nextCount % 5 === 0) { 
+            if (nextCount > 0 && nextCount % 10 === 0) { 
               setGameState('paused');
             } else {
               setProblem(generateTimeProblem(Math.floor(nextScore / 50) + 1));
@@ -144,7 +174,6 @@
         } else {
           setFeedback('wrong');
           setCombo(0);
-          setUserMinutes(problem.initialSetTime); // ✅ 오답일 경우 시곗바늘 초기화
           setTimeout(() => setFeedback(null), 1000);
         }
       };
@@ -159,7 +188,7 @@
       };
 
       if (gameState === 'paused') return (
-        <div className="flex flex-col items-center justify-center p-4 min-h-[100dvh] pb-24">
+        <div className="flex flex-col items-center justify-center p-4 pb-3">
           <div className="bg-white/95 rounded-[2.5rem] shadow-2xl p-8 text-center max-w-sm w-full">
             <div className="text-6xl mb-4 text-center">✨</div>
             <h2 className="text-3xl font-black text-orange-600 mb-2">🎉 시간의 지배자!</h2>
@@ -193,7 +222,7 @@
       );
 
       if (gameState === 'gameOver') return (
-        <div className="flex flex-col items-center justify-center p-4 min-h-[100dvh] pb-24">
+        <div className="flex flex-col items-center justify-center p-4 pb-3">
           <div className="bg-white/95 rounded-[2.5rem] shadow-2xl p-8 text-center max-w-sm w-full">
             <div className="text-6xl mb-6 text-center">🏆</div>
             <h2 className="text-2xl font-black text-gray-800 mb-2">기록을 저장할까요?</h2>
@@ -219,7 +248,7 @@
       );
 
       if (gameState === 'leaderboard') return (
-        <div className="flex flex-col items-center justify-center p-4 min-h-[100dvh] pb-24">
+        <div className="flex flex-col items-center justify-center p-4 pb-3">
           <div className="bg-white/95 rounded-[2.5rem] shadow-2xl p-8 w-full max-w-sm">
             <div className="flex items-center justify-center gap-3 mb-8">
               <span className="text-3xl">🏆</span>
@@ -252,7 +281,7 @@
 
       return (
         <div 
-          className="flex flex-col items-center justify-center p-4 md:p-6 min-h-[100dvh] pb-24 select-none"
+          className="flex flex-col items-center justify-center p-4 md:p-6 pb-3 md:pb-3 select-none"
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         >
@@ -266,7 +295,7 @@
           <div className="bg-white/95 backdrop-blur-md rounded-[2.5rem] shadow-2xl p-4 md:p-6 w-full max-w-[400px] border-4 border-white/40 relative">
             
             <div className="absolute -top-3 -right-2 bg-orange-500 text-white text-xs md:text-sm font-bold px-3 py-1 md:px-4 md:py-1.5 rounded-full shadow-lg z-10">
-              {(problemCount % 5) + 1} / 5
+              {(problemCount % 10) + 1} / 10
             </div>
 
             <div className="flex justify-between items-center mb-4 bg-gray-50 rounded-xl md:rounded-2xl p-3 md:p-4 shadow-inner border border-gray-100">
@@ -381,5 +410,11 @@
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
+<footer class="prototype-footer">
+      <span class="version">Prototype v0.1</span>
+      <span class="divider"> | </span>
+      <span>기획 및 프로토타입 제작: 아름 손 (2026)</span>
+  </footer>
+
 </body>
 </html>
